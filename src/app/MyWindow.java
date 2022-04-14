@@ -18,6 +18,9 @@ public class MyWindow extends JFrame implements ActionListener {
     private JPanel conPane;
 
     AboutWindow aboutWindow = null;
+    InfoBottomPanel infoPanel = null;
+    CenterPanel centerPanel = null;
+    MyLogger logger = null;
 
     private JMenu fileMenu, helpMenu, viewMenu;
     private JMenuItem exitMenuItem, aboutMenuItem, helpMenuItem;
@@ -29,7 +32,7 @@ public class MyWindow extends JFrame implements ActionListener {
     private Icon iconExit, mIconExit, iconHelp, mIconHelp, iconAbout, mIconAbout;
     private static final String ICON_PATH = ("/resources/");
 
-    MyLogger logger = null;
+
 
     public MyWindow() {
         setTitle("Moje okno");
@@ -53,10 +56,18 @@ public class MyWindow extends JFrame implements ActionListener {
         //utworzenie GUI
         createMenus();
         createIcons();
+
         jToolBar = new JToolBar();
         createJToolBar(jToolBar);
 
+        infoPanel = new InfoBottomPanel();
+        createPanel();
+
+        centerPanel= new CenterPanel();
+
         conPane.add(jToolBar, BorderLayout.NORTH);
+        conPane.add(infoPanel, BorderLayout.SOUTH);
+        conPane.add(centerPanel, BorderLayout.CENTER);
 
     }
 
@@ -93,7 +104,7 @@ public class MyWindow extends JFrame implements ActionListener {
                     KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK), true);
             aboutMenuItem = createJMenuItem("O autorze", mIconAbout,
                     KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK), true);
-            helpMenuItem = createJMenuItem("Pomoc", mIconHelp,
+            helpMenuItem = createJMenuItem("O programie", mIconHelp,
                     KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.ALT_MASK), true);
 
 
@@ -103,22 +114,26 @@ public class MyWindow extends JFrame implements ActionListener {
             this.setJMenuBar(menuBar);
         }
 
-    public void createJToolBar(JToolBar cjtb) {
+        public void createPanel(){
+            InfoBottomPanel.setInfoString("Start aplikacji");
+        }
 
-        cjtb.setFloatable(false);
-        cjtb.add(Box.createHorizontalStrut(5));
+        public void createJToolBar(JToolBar cjtb) {
 
-        // Utworzenie przycisków paska narzedziowego
-        jtbExit = createJButtonToolBar("Wyjście",iconExit,true);
-        jtbHelp = createJButtonToolBar("Pomoc",iconHelp,true);
-        jtbAbout = createJButtonToolBar("O autorze",iconAbout,true);
+            cjtb.setFloatable(false);
+            cjtb.add(Box.createHorizontalStrut(5));
 
-        // dodanie przycisków do paska narzędziowego
-        cjtb.add(jtbExit);
-        cjtb.addSeparator();
-        cjtb.add(jtbHelp);
-        cjtb.add(jtbAbout);
-    }
+            // Utworzenie przycisków paska narzedziowego
+            jtbExit = createJButtonToolBar("Wyjście",iconExit,true);
+            jtbHelp = createJButtonToolBar("O programie",iconHelp,true);
+            jtbAbout = createJButtonToolBar("O autorze",iconAbout,true);
+
+            // dodanie przycisków do paska narzędziowego
+            cjtb.add(jtbExit);
+            cjtb.addSeparator();
+            cjtb.add(jtbHelp);
+            cjtb.add(jtbAbout);
+        }
 
         public JMenu createJMenu(String name, int keyEvent,boolean enable) {
             JMenu jMenu = new JMenu(name);
@@ -177,7 +192,7 @@ public class MyWindow extends JFrame implements ActionListener {
         }
 
         public void actionPerformed(ActionEvent ae){
-            if(ae.getSource() == aboutMenuItem) {
+            if((ae.getSource() == aboutMenuItem) || (ae.getSource() == jtbAbout)) {
                 if (aboutWindow != null) aboutWindow.setVisible(true);
                 else {
                     showMessageDialog(this,
@@ -194,5 +209,6 @@ public class MyWindow extends JFrame implements ActionListener {
         System.out.println("Start aplikacji");
         MyWindow myWindow = new MyWindow();
         myWindow.setVisible(true);
+
     }
 }
