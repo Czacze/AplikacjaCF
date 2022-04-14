@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
 import org.freixas.jcalendar.JCalendarCombo;
 /**
  * Program <code>MyWindow</code>
@@ -17,13 +19,14 @@ import org.freixas.jcalendar.JCalendarCombo;
 public class CenterPanel extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private JPanel northPanel, southPanel;
+    private JPanel northPanel, centerPanel, southPanel;
     private JTextField numberTextField;
     private JSpinner rowTextField;
     private JSpinner columnTextField;
     private JTextArea resultTextArea;
     private JLabel numberLabel,rowLabel,columnLabel;
     private JButton submitButton;
+    private JTable Table;
 
     public SpinnerNumberModel Spin1,Spin2;
 
@@ -39,14 +42,16 @@ public class CenterPanel extends JPanel implements ActionListener {
      * Metoda tworzacaca graficzny interfejs uzytkownika
      */
     public void createGUI() {
-        this.setLayout(new GridLayout(2,1,5,5));
+        this.setLayout(new GridLayout(3,1,5,5));
 
         // Utworzenie panelu z paramtrami i wynikiem
         northPanel = createNorthPanel();
+        centerPanel = createCenterPanel();
         southPanel = createSouthPanel();
 
         // Utworzenie obiektow TextField
         this.add(northPanel);
+        this.add(centerPanel);
         this.add(southPanel);
     }
     /**
@@ -54,7 +59,7 @@ public class CenterPanel extends JPanel implements ActionListener {
      */
     public JPanel createNorthPanel() {
         JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout());
+        jp.setLayout(new GridBagLayout());
 
         numberLabel = new JLabel("Wprowadź liczbę");
         numberTextField = new JTextField(10);
@@ -66,7 +71,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         Spin2 = new SpinnerNumberModel(1,1,5,1);
         columnLabel = new JLabel("Numer kolumny");
         columnTextField = new JSpinner(Spin2);
-        
+
 
         submitButton = new JButton("Submit");
         submitButton.addActionListener(this);
@@ -80,6 +85,26 @@ public class CenterPanel extends JPanel implements ActionListener {
         jp.add(submitButton);
         return jp;
     }
+
+    public JPanel createCenterPanel(){
+        JPanel jp = new JPanel();
+
+        DefaultTableModel tableModel = new DefaultTableModel();
+        JTable table = new JTable(tableModel);
+        tableModel.addColumn("Languages");
+        tableModel.insertRow(0, new Object[] { "CSS" });
+        tableModel.insertRow(0, new Object[] { "HTML5" });
+        tableModel.insertRow(0, new Object[] { "JavaScript" });
+        tableModel.insertRow(0, new Object[] { "jQuery" });
+        tableModel.insertRow(0, new Object[] { "AngularJS" });
+        tableModel.insertRow(tableModel.getRowCount(), new Object[] { "ExpressJS" });
+        this.setSize(550, 350);
+        this.add(new JScrollPane(table));
+        this.setVisible(true);
+
+        return jp;
+    }
+
     /**
      * Metoda tworzaca panel z wynikami
      */
