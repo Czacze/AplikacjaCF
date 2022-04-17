@@ -42,7 +42,7 @@ public class CenterPanel extends JPanel implements ActionListener {
      * Metoda tworzacaca graficzny interfejs uzytkownika
      */
     public void createGUI() {
-        this.setLayout(new GridLayout(3,1,5,5));
+        this.setLayout(new BorderLayout());
 
         // Utworzenie panelu z paramtrami i wynikiem
         northPanel = createNorthPanel();
@@ -50,26 +50,26 @@ public class CenterPanel extends JPanel implements ActionListener {
         southPanel = createSouthPanel();
 
         // Utworzenie obiektow TextField
-        this.add(northPanel);
-        this.add(centerPanel);
-        this.add(southPanel);
+        this.add(northPanel,BorderLayout.NORTH);
+        this.add(centerPanel,BorderLayout.CENTER);
+        this.add(southPanel,BorderLayout.SOUTH);
     }
     /**
      * Metoda tworzaca panel z parametrami
      */
     public JPanel createNorthPanel() {
         JPanel jp = new JPanel();
-        jp.setLayout(new GridBagLayout());
+        jp.setLayout(new GridLayout(1,4,5,1));
 
-        numberLabel = new JLabel("Wprowadź liczbę");
-        numberTextField = new JTextField(10);
+        numberLabel = new JLabel("Wartość");
+        numberTextField = new JTextField(5);
 
         Spin1 = new SpinnerNumberModel(1,1,5,1);
-        rowLabel = new JLabel("Numer wiersza");
+        rowLabel = new JLabel("Nr wiersza");
         rowTextField = new JSpinner(Spin1);
 
         Spin2 = new SpinnerNumberModel(1,1,5,1);
-        columnLabel = new JLabel("Numer kolumny");
+        columnLabel = new JLabel("Nr kolumny");
         columnTextField = new JSpinner(Spin2);
 
 
@@ -86,22 +86,31 @@ public class CenterPanel extends JPanel implements ActionListener {
         return jp;
     }
 
+
     public JPanel createCenterPanel(){
         JPanel jp = new JPanel();
 
-        DefaultTableModel tableModel = new DefaultTableModel();
-        JTable table = new JTable(tableModel);
-        tableModel.addColumn("Languages");
-        tableModel.insertRow(0, new Object[] { "CSS" });
-        tableModel.insertRow(0, new Object[] { "HTML5" });
-        tableModel.insertRow(0, new Object[] { "JavaScript" });
-        tableModel.insertRow(0, new Object[] { "jQuery" });
-        tableModel.insertRow(0, new Object[] { "AngularJS" });
-        tableModel.insertRow(tableModel.getRowCount(), new Object[] { "ExpressJS" });
-        this.setSize(550, 350);
-        this.add(new JScrollPane(table));
-        this.setVisible(true);
+        jp.setLayout(new GridLayout(1,4,5,5));
 
+        Integer[][] dane = {
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+                {0,0,0,0,0}
+        };
+        String kolumny[]= {"0","0","0","0","0"};
+        JTable table = new JTable(dane,kolumny) {
+            public boolean isCellEditable(int rowIndex, int mColIndex) { //blokada edycji tabeli
+                return false;
+            }
+        };
+        table.setRowHeight(20);
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
+        jp.setSize(550, 200);
+        jp.add(new JScrollPane(table));
+        jp.setVisible(true);
         return jp;
     }
 
@@ -110,6 +119,7 @@ public class CenterPanel extends JPanel implements ActionListener {
      */
     public JPanel createSouthPanel() {
         JPanel jp = new JPanel();
+
         blackLine = BorderFactory.createLineBorder(Color.gray);
         titledBorder = BorderFactory.createTitledBorder(blackLine,
                 "Uzyskany rezultat");

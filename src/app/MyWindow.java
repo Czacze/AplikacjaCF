@@ -167,9 +167,6 @@ public class MyWindow extends JFrame implements ActionListener {
         {
             String name = ICON_PATH + nameFile;
             Icon icon = new ImageIcon(getClass().getResource(name));
-//            URL url = getClass().getResource(name);
-//            if(url == null) throw new IconException();
-//            else icon = new ImageIcon(url);
 
             return icon;
         }
