@@ -39,6 +39,7 @@ public class MyWindow extends JFrame implements ActionListener {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         //Zamykanie okna
         addWindowListener(new WindowAdapter() {
@@ -109,6 +110,7 @@ public class MyWindow extends JFrame implements ActionListener {
 
 
             menuBar.add(fileMenu);
+            fileMenu.add(exitMenuItem);
             menuBar.add(helpMenu);
             helpMenu.add(aboutMenuItem);
             this.setJMenuBar(menuBar);
@@ -197,6 +199,9 @@ public class MyWindow extends JFrame implements ActionListener {
                             "O autorze",
                             INFORMATION_MESSAGE);
                 }
+            }
+            else if((ae.getSource() == jtbExit) || (ae.getSource() == exitMenuItem)) {
+                closeWindow();
             }
         }
 

@@ -25,8 +25,10 @@ public class CenterPanel extends JPanel implements ActionListener {
     private JSpinner columnTextField;
     private JTextArea resultTextArea;
     private JLabel numberLabel,rowLabel,columnLabel;
-    private JButton submitButton;
-    private JTable Table;
+    private JButton submitButton, sumButton, avgButton, maxButton, minButton, calcButton;
+    private JTable table;
+    private JScrollPane tablePane;
+    private Tabela tabela;
 
     public SpinnerNumberModel Spin1,Spin2;
 
@@ -62,7 +64,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         jp.setLayout(new GridLayout(1,4,5,1));
 
         numberLabel = new JLabel("Wartość");
-        numberTextField = new JTextField(5);
+        numberTextField = new JTextField();
 
         Spin1 = new SpinnerNumberModel(1,1,5,1);
         rowLabel = new JLabel("Nr wiersza");
@@ -89,28 +91,46 @@ public class CenterPanel extends JPanel implements ActionListener {
 
     public JPanel createCenterPanel(){
         JPanel jp = new JPanel();
+        jp.setLayout(new GridLayout(2,1,5,5));
 
-        jp.setLayout(new GridLayout(1,4,5,5));
+        tabela = new Tabela();
+        table = new JTable(tabela);
+        tablePane = new JScrollPane(table);
+        jp.add(tablePane);
+        jp.add(createCenterPanel2());
 
-        Integer[][] dane = {
-                {0,0,0,0,0},
-                {0,0,0,0,0},
-                {0,0,0,0,0},
-                {0,0,0,0,0},
-                {0,0,0,0,0}
-        };
-        String kolumny[]= {"0","0","0","0","0"};
-        JTable table = new JTable(dane,kolumny) {
-            public boolean isCellEditable(int rowIndex, int mColIndex) { //blokada edycji tabeli
-                return false;
-            }
-        };
-        table.setRowHeight(20);
-        table.setFocusable(false);
-        table.setRowSelectionAllowed(false);
-        jp.setSize(550, 200);
-        jp.add(new JScrollPane(table));
-        jp.setVisible(true);
+        return jp;
+    }
+
+    public JPanel createCenterPanel2(){
+        JPanel jp = new JPanel();
+        jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
+
+        jp.add(Box.createHorizontalStrut(80));
+        sumButton = new JButton("Suma");
+        jp.add(sumButton);
+        jp.add(Box.createHorizontalStrut(50));
+        avgButton = new JButton("Średnia");
+        jp.add(avgButton);
+        jp.add(Box.createHorizontalStrut(50));
+        minButton = new JButton("Min");
+        jp.add(minButton);
+        jp.add(Box.createHorizontalStrut(50));
+        maxButton = new JButton("Max");
+        jp.add(maxButton);
+        jp.add(Box.createHorizontalStrut(50));
+        jp.setBackground(new Color(232,220,202));
+        jp.add(createCenterPanel3());
+        return jp;
+    }
+
+    public JPanel createCenterPanel3(){
+        JPanel jp = new JPanel();
+        jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
+
+        calcButton = new JButton("Oblicz");
+        jp.add(calcButton);
+
         return jp;
     }
 
@@ -142,7 +162,10 @@ public class CenterPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == submitButton) {
-            String param = numberTextField.getText();
+            int row = (int) rowTextField.getValue()-1;
+            int column = (int) columnTextField.getValue()-1;
+            int value = Integer.parseInt(numberTextField.getText());
+            tabela.setValueAt(value,row,column);
         }
     }
     /**
