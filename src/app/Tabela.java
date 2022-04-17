@@ -1,6 +1,7 @@
 package app;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Random;
 
 public class Tabela extends AbstractTableModel {
 
@@ -21,6 +22,31 @@ public class Tabela extends AbstractTableModel {
                 dane[i][j]=0;
             }
         fireTableDataChanged();
+    }
+
+    public void setRandomTable() {
+        Random random = new Random();
+        for(int i=0; i<countRowTable; i++)
+            for(int j=0; j<countColumnTable; j++) {
+                // ograniczenie znaku liczby i zakresu do 10
+                dane[i][j] = Math.abs(random.nextInt()) % 10;
+            }
+        fireTableDataChanged();
+    }
+
+    public Integer calculateSum() {
+        Integer sum = new Integer(0);
+        for(int i=0; i<countRowTable; i++)
+            for(int j=0; j<countColumnTable; j++) {
+                sum = sum + dane[i][j];
+            }
+        return sum;
+    }
+    public Float calculateAverage() {
+        Float avg = new Float(0.0);
+        Integer sum = calculateSum();
+        if(sum > 0) avg = (sum.floatValue())/(countRowTable*countColumnTable);
+        return avg;
     }
 
     public void setValueAt(int value, int rowIndex, int columnIndex){

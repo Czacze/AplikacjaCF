@@ -6,9 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
-import org.freixas.jcalendar.JCalendarCombo;
 /**
  * Program <code>MyWindow</code>
  * Klasa <code>CenterPanel</code> definiujaca centralny panel
@@ -25,7 +23,7 @@ public class CenterPanel extends JPanel implements ActionListener {
     private JSpinner columnTextField;
     private JTextArea resultTextArea;
     private JLabel numberLabel,rowLabel,columnLabel,operLabel;
-    private JButton submitButton, sumButton, avgButton, maxButton, minButton, calcButton;
+    private JButton submitButton, zeroButton, fillButton, susButton, saveButton, calcButton;
     private JTable table;
     private JScrollPane tablePane;
     private Tabela tabela;
@@ -110,16 +108,26 @@ public class CenterPanel extends JPanel implements ActionListener {
 
     public JPanel createCenterPanel2(){
         JPanel jp = new JPanel();
-        jp.setLayout(new FlowLayout());
+        jp.setLayout(new GridBagLayout());
 
-        sumButton = new JButton("Suma");
-        jp.add(sumButton);
-        avgButton = new JButton("Średnia");
-        jp.add(avgButton);
-        minButton = new JButton("Min");
-        jp.add(minButton);
-        maxButton = new JButton("Max");
-        jp.add(maxButton);
+        zeroButton = new JButton("Zerowanie");
+        zeroButton.addActionListener(this);
+        jp.add(zeroButton);
+
+        jp.add(Box.createHorizontalStrut(20));
+        fillButton = new JButton("Zapełnianie");
+        fillButton.addActionListener(this);
+        jp.add(fillButton);
+
+        jp.add(Box.createHorizontalStrut(20));
+        saveButton = new JButton("Zapis");
+        saveButton.addActionListener(this);
+        jp.add(saveButton);
+
+        jp.add(Box.createHorizontalStrut(20));
+        susButton = new JButton("Amogus");
+        susButton.addActionListener(this);
+        jp.add(susButton);
 
         jp.setBackground(new Color(232,220,202));
         return jp;
@@ -136,6 +144,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         jp.add(operacja);
 
         calcButton = new JButton("Oblicz");
+        calcButton.addActionListener(this);
         jp.add(calcButton);
 
         return jp;
@@ -173,6 +182,25 @@ public class CenterPanel extends JPanel implements ActionListener {
             int column = (int) columnTextField.getValue()-1;
             int value = Integer.parseInt(numberTextField.getText());
             tabela.setValueAt(value,row,column);
+        }
+        else if(ae.getSource() == zeroButton) {
+            tabela.setZeroTable();
+        }
+        else if(ae.getSource() == fillButton) {
+            tabela.setRandomTable();
+        }
+        else if(ae.getSource() == calcButton){
+            switch(operacja.getSelectedIndex()){
+            case 0:
+                resultTextArea.setText("Suma wynosi: " + tabela.calculateSum());
+                break;
+            case 1:
+                resultTextArea.setText("Średnia wynosi: " + tabela.calculateAverage());
+                break;
+            case 2:
+                resultTextArea.setText("Min wynosi: " + " ,Max wynosi: ");
+                break;
+            }
         }
     }
     /**
