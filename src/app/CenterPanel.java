@@ -24,11 +24,13 @@ public class CenterPanel extends JPanel implements ActionListener {
     private JSpinner rowTextField;
     private JSpinner columnTextField;
     private JTextArea resultTextArea;
-    private JLabel numberLabel,rowLabel,columnLabel;
+    private JLabel numberLabel,rowLabel,columnLabel,operLabel;
     private JButton submitButton, sumButton, avgButton, maxButton, minButton, calcButton;
     private JTable table;
     private JScrollPane tablePane;
     private Tabela tabela;
+    private JComboBox operacja;
+    private String[] oper = {"Suma","Średnia","Min","Max"};
 
     public SpinnerNumberModel Spin1,Spin2;
 
@@ -91,42 +93,47 @@ public class CenterPanel extends JPanel implements ActionListener {
 
     public JPanel createCenterPanel(){
         JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(2,1,5,5));
+        jp.setLayout(new BorderLayout());
+        Dimension d = new Dimension(100,105);
+
 
         tabela = new Tabela();
         table = new JTable(tabela);
         tablePane = new JScrollPane(table);
-        jp.add(tablePane);
-        jp.add(createCenterPanel2());
+        tablePane.setPreferredSize(d);
+        jp.add(tablePane, BorderLayout.NORTH);
+        jp.add(createCenterPanel2(),BorderLayout.CENTER);
+        jp.add(createCenterPanel3(),BorderLayout.SOUTH);
 
         return jp;
     }
 
     public JPanel createCenterPanel2(){
         JPanel jp = new JPanel();
-        jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
+        jp.setLayout(new FlowLayout());
 
-        jp.add(Box.createHorizontalStrut(80));
         sumButton = new JButton("Suma");
         jp.add(sumButton);
-        jp.add(Box.createHorizontalStrut(50));
         avgButton = new JButton("Średnia");
         jp.add(avgButton);
-        jp.add(Box.createHorizontalStrut(50));
         minButton = new JButton("Min");
         jp.add(minButton);
-        jp.add(Box.createHorizontalStrut(50));
         maxButton = new JButton("Max");
         jp.add(maxButton);
-        jp.add(Box.createHorizontalStrut(50));
+
         jp.setBackground(new Color(232,220,202));
-        jp.add(createCenterPanel3());
         return jp;
     }
 
     public JPanel createCenterPanel3(){
         JPanel jp = new JPanel();
-        jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
+        jp.setLayout(new FlowLayout());
+
+        operLabel = new JLabel("Wybór operacji");
+        jp.add(operLabel);
+
+        operacja = new JComboBox(oper);
+        jp.add(operacja);
 
         calcButton = new JButton("Oblicz");
         jp.add(calcButton);
