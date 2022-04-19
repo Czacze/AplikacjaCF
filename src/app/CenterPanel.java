@@ -167,8 +167,8 @@ public class CenterPanel extends JPanel implements ActionListener {
         // zawijanie wierszy
         resultTextArea.setLineWrap(true);
         // edycja pola TextArea
-        // resulTextAreat.setEditable(false);
-        resultTextArea.append("Start aplikacji\n");
+        resultTextArea.setEditable(false);
+        resultTextArea.append("\n");
         jp.add(new JScrollPane(resultTextArea),BorderLayout.CENTER);
         return jp;
     }

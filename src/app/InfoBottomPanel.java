@@ -3,11 +3,6 @@ package app;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -23,8 +18,8 @@ import javax.swing.JTextField;
 public class InfoBottomPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static JTextField infoTF, timeInfoTF,userInfoTF;
-    private JLabel infoLabel, timeLabel,userLabel;
+    private static JTextField infoTF, VersionInfoTF,userInfoTF;
+    private JLabel infoLabel, versionLabel,userLabel;
 
 
     /**
@@ -43,30 +38,33 @@ public class InfoBottomPanel extends JPanel {
 
         // Utworzenie etykiet tekstowych
         infoLabel = new JLabel("Status:");
-        timeLabel = new JLabel("Czas:");
+        versionLabel = new JLabel("Wersja:");
         userLabel = new JLabel("User:");
 
         // Utworzenie obiektow TextField
         infoTF = new JTextField("Start aplikacji");
         infoTF.putClientProperty("JComponent.sizeVariant", "small");
         infoTF.setMinimumSize(new Dimension(200,20));
+        infoTF.setEditable(false);
 
 
-        timeInfoTF = new JTextField("Godzina");
-        timeInfoTF.putClientProperty("JComponent.sizeVariant", "small");
-        timeInfoTF.setMinimumSize(new Dimension(30,20));
+        VersionInfoTF = new JTextField("v1.01");
+        VersionInfoTF.putClientProperty("JComponent.sizeVariant", "small");
+        VersionInfoTF.setMinimumSize(new Dimension(30,20));
+        VersionInfoTF.setEditable(false);
 
         userInfoTF = new JTextField("");
         userInfoTF.putClientProperty("JComponent.sizeVariant", "small");
         userInfoTF.setMinimumSize(new Dimension(100,20));
+        userInfoTF.setEditable(false);
 
         this.add(infoLabel);
         this.add(Box.createHorizontalStrut(10));
         this.add(infoTF);
         this.add(Box.createHorizontalStrut(20));
-        this.add(timeLabel);
+        this.add(versionLabel);
         this.add(Box.createHorizontalStrut(10));
-        this.add(timeInfoTF);
+        this.add(VersionInfoTF);
         this.add(Box.createHorizontalStrut(20));
         this.add(userLabel);
         this.add(Box.createHorizontalStrut(10));
