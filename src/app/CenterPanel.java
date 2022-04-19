@@ -181,7 +181,7 @@ public class CenterPanel extends JPanel implements ActionListener {
             int row = (int) rowTextField.getValue()-1;
             int column = (int) columnTextField.getValue()-1;
             int value = Integer.parseInt(numberTextField.getText());
-            tabela.setValueAt(value,row,column);
+            tabela.setValueAt(value,column,row);
         }
         else if(ae.getSource() == zeroButton) {
             tabela.setZeroTable();
@@ -198,7 +198,7 @@ public class CenterPanel extends JPanel implements ActionListener {
                 resultTextArea.setText("Średnia wynosi: " + tabela.calculateAverage());
                 break;
             case 2:
-                resultTextArea.setText("Min wynosi: " + " ,Max wynosi: ");
+                resultTextArea.setText("Min wynosi: " + tabela.calculateMin() + " , Max wynosi: " + tabela.calculateMax());
                 break;
             }
         }
@@ -211,3 +211,4 @@ public class CenterPanel extends JPanel implements ActionListener {
         return new Insets(5,10,10,10);
     }
 }
+//TODO: try/catch, spinner>slider, zapis do pliku .csv(export)

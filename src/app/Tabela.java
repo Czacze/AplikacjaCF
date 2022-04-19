@@ -49,6 +49,28 @@ public class Tabela extends AbstractTableModel {
         return avg;
     }
 
+    public Integer calculateMin(){
+        Integer minValue = new Integer(dane[0][0]);
+        for(int i=0; i<countRowTable; i++)
+            for(int j=0; j<countColumnTable; j++) {
+                if (dane[i][j] < minValue){
+                    minValue = dane[i][j];
+                }
+            }
+        return minValue;
+    }
+
+    public Integer calculateMax(){
+        Integer maxValue = new Integer(dane[0][0]);
+        for(int i=0; i<countRowTable; i++)
+            for(int j=0; j<countColumnTable; j++) {
+                if (dane[i][j] > maxValue){
+                    maxValue = dane[i][j];
+                }
+            }
+        return maxValue;
+    }
+
     public void setValueAt(int value, int rowIndex, int columnIndex){
         dane[columnIndex][rowIndex] = value;
         fireTableDataChanged();
