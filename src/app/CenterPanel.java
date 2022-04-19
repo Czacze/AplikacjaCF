@@ -5,9 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.TableModel;
 
 /**
  * Program <code>MyWindow</code>
@@ -69,6 +72,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         jp.setLayout(new GridLayout());
 
         numberLabel = new JLabel("Wartość");
+        numberLabel.setHorizontalAlignment(SwingConstants.CENTER);
         numberTextField = new JTextField();
         //wymuszenie wpisania liczb
         numberTextField.addKeyListener(new KeyAdapter() {
@@ -86,6 +90,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         rowTextField.setPaintTicks(true);
         rowTextField.setPaintLabels(true);
         rowLabel = new JLabel("Nr wiersza");
+        rowLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 
         columnTextField = new JSlider(JSlider.HORIZONTAL,1,5,1);
@@ -93,6 +98,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         columnTextField.setPaintTicks(true);
         columnTextField.setPaintLabels(true);
         columnLabel = new JLabel("Nr kolumny");
+        columnLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 
         submitButton = new JButton("Submit");
@@ -144,10 +150,10 @@ public class CenterPanel extends JPanel implements ActionListener {
         saveButton.addActionListener(this);
         jp.add(saveButton);
 
-        jp.add(Box.createHorizontalStrut(20));
-        susButton = new JButton("Amogus");
-        susButton.addActionListener(this);
-        jp.add(susButton);
+//        jp.add(Box.createHorizontalStrut(20));
+//        susButton = new JButton("Amogus");
+//        susButton.addActionListener(this);
+//        jp.add(susButton);
 
         jp.setBackground(new Color(232,220,202));
         return jp;
@@ -198,17 +204,27 @@ public class CenterPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == submitButton) {
-            int row = (int) rowTextField.getValue()-1;
-            int column = (int) columnTextField.getValue()-1;
-            int value = Integer.parseInt(numberTextField.getText());
+            try {
+                int row = (int) rowTextField.getValue()-1;
+                int column = (int) columnTextField.getValue()-1;
+                int value = Integer.parseInt(numberTextField.getText());
 
-            tabela.setValueAt(value, column, row);
+                tabela.setValueAt(value, column, row);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this,
+                        "Błędna wartość",
+                        "Błąd",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
         else if(ae.getSource() == zeroButton) {
             tabela.setZeroTable();
         }
         else if(ae.getSource() == fillButton) {
             tabela.setRandomTable();
+        }
+        else if(ae.getSource() == saveButton){
+            exportToCSV();
         }
         else if(ae.getSource() == calcButton){
             switch(operacja.getSelectedIndex()){
@@ -221,6 +237,29 @@ public class CenterPanel extends JPanel implements ActionListener {
             case 2:
                 resultTextArea.setText("Min wynosi: " + tabela.calculateMin() + " , Max wynosi: " + tabela.calculateMax());
                 break;
+            }
+        }
+    }
+    public void exportToCSV(){
+        JFileChooser fileBrowser = new JFileChooser();
+        int select = fileBrowser.showSaveDialog(this);
+        if (select == JFileChooser.APPROVE_OPTION){
+            try{
+                TableModel model = table.getModel();
+                FileWriter csv = new FileWriter(fileBrowser.getSelectedFile()+".csv");
+
+                for(int i=0; i<model.getRowCount(); i++){
+                    for (int j=0; j<model.getColumnCount(); j++){
+                        csv.write(model.getValueAt(i,j) + ",");
+                    }
+                    csv.write("\n");
+                }
+                csv.close();
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(this,
+                        "Wystąpił błąd przy zapisywaniu pliku",
+                        "Błąd",
+                        JOptionPane.WARNING_MESSAGE);
             }
         }
     }
@@ -238,4 +277,4 @@ public class CenterPanel extends JPanel implements ActionListener {
         return submitButton;
     }
 }
-//TODO: try/catch, zapis do pliku .csv(export)
+//TODO: zapis do pliku .csv(export)

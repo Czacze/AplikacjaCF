@@ -90,4 +90,9 @@ public class Tabela extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         return dane[rowIndex][columnIndex];
     }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+            return Integer.class;
+    }
 }
