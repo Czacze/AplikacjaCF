@@ -17,7 +17,6 @@ public class MyWindow extends JFrame implements ActionListener {
 
     private JPanel conPane;
 
-    AboutWindow aboutWindow = null;
     InfoBottomPanel infoPanel = null;
     CenterPanel centerPanel = null;
     MyLogger logger = null;
@@ -192,13 +191,11 @@ public class MyWindow extends JFrame implements ActionListener {
 
         public void actionPerformed(ActionEvent ae){
             if((ae.getSource() == aboutMenuItem) || (ae.getSource() == jtbAbout)) {
-                if (aboutWindow != null) aboutWindow.setVisible(true);
-                else {
                     showMessageDialog(this,
                             "Autor: Cezary Formalewicz",
                             "O autorze",
                             INFORMATION_MESSAGE);
-                }
+
             }
             else if((ae.getSource() == jtbExit) || (ae.getSource() == exitMenuItem)) {
                 closeWindow();
