@@ -3,6 +3,8 @@ package app;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -19,18 +21,21 @@ public class CenterPanel extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
     private JPanel northPanel, centerPanel, southPanel;
     private JTextField numberTextField;
-    private JSpinner rowTextField;
-    private JSpinner columnTextField;
+    private JSlider rowTextField;
+    private JSlider columnTextField;
     private JTextArea resultTextArea;
     private JLabel numberLabel,rowLabel,columnLabel,operLabel;
-    private JButton submitButton, zeroButton, fillButton, susButton, saveButton, calcButton;
+    private static JButton submitButton;
+    private JButton zeroButton;
+    private JButton fillButton;
+    private JButton susButton;
+    private JButton saveButton;
+    private JButton calcButton;
     private JTable table;
     private JScrollPane tablePane;
     private Tabela tabela;
     private JComboBox operacja;
-    private String[] oper = {"Suma","Średnia","Min","Max"};
-
-    public SpinnerNumberModel Spin1,Spin2;
+    private String[] oper = {"Suma","Średnia","Min i Max"};
 
     private TitledBorder titledBorder;
     private Border blackLine;
@@ -61,18 +66,33 @@ public class CenterPanel extends JPanel implements ActionListener {
      */
     public JPanel createNorthPanel() {
         JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(1,4,5,1));
+        jp.setLayout(new GridLayout());
 
         numberLabel = new JLabel("Wartość");
         numberTextField = new JTextField();
+        //wymuszenie wpisania liczb
+        numberTextField.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c =e.getKeyChar();
+                if(!(Character.isDigit(c)|| (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE))){
+                    e.consume();
+                }
+            }
+        });
 
-        Spin1 = new SpinnerNumberModel(1,1,5,1);
+
+        rowTextField = new JSlider(JSlider.HORIZONTAL,1,5,1);
+        rowTextField.setMajorTickSpacing(1);
+        rowTextField.setPaintTicks(true);
+        rowTextField.setPaintLabels(true);
         rowLabel = new JLabel("Nr wiersza");
-        rowTextField = new JSpinner(Spin1);
 
-        Spin2 = new SpinnerNumberModel(1,1,5,1);
+
+        columnTextField = new JSlider(JSlider.HORIZONTAL,1,5,1);
+        columnTextField.setMajorTickSpacing(1);
+        columnTextField.setPaintTicks(true);
+        columnTextField.setPaintLabels(true);
         columnLabel = new JLabel("Nr kolumny");
-        columnTextField = new JSpinner(Spin2);
 
 
         submitButton = new JButton("Submit");
@@ -181,7 +201,8 @@ public class CenterPanel extends JPanel implements ActionListener {
             int row = (int) rowTextField.getValue()-1;
             int column = (int) columnTextField.getValue()-1;
             int value = Integer.parseInt(numberTextField.getText());
-            tabela.setValueAt(value,column,row);
+
+            tabela.setValueAt(value, column, row);
         }
         else if(ae.getSource() == zeroButton) {
             tabela.setZeroTable();
@@ -210,5 +231,11 @@ public class CenterPanel extends JPanel implements ActionListener {
     public Insets getInsets() {
         return new Insets(5,10,10,10);
     }
+    public JLabel getNumberLabel() {
+        return numberLabel;
+    }
+    public static JButton getSubmitButton(){
+        return submitButton;
+    }
 }
-//TODO: try/catch, spinner>slider, zapis do pliku .csv(export)
+//TODO: try/catch, zapis do pliku .csv(export)
