@@ -78,7 +78,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         numberTextField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c =e.getKeyChar();
-                if(!(Character.isDigit(c)|| (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE))){
+                if(!(Character.isDigit(c)|| (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE) || (c==KeyEvent.VK_MINUS))){
                     e.consume();
                 }
             }

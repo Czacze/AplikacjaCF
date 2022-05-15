@@ -1,9 +1,11 @@
 <component name="libraryTable">
-  <library name="jcalendar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/jcalendar.jar!/" />
-    </CLASSES>
+  <library name="JCalendar">
+    <CLASSES />
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/FLib-1.1.1.zip!/FLib/JCalendar" />
+      <root url="jar://$PROJECT_DIR$/lib/FLib-1.1.1.zip!/FLib/JWizard" />
+      <root url="jar://$PROJECT_DIR$/lib/FLib-1.1.1.zip!/FLib/TableLayout" />
+    </SOURCES>
   </library>
 </component>

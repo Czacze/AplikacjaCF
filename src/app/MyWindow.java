@@ -5,8 +5,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
+import com.l2fprod.common.swing.JTipOfTheDay;
 
+import static java.lang.Thread.sleep;
 import static javax.swing.JOptionPane.*;
 
 public class MyWindow extends JFrame implements ActionListener {
@@ -20,6 +21,7 @@ public class MyWindow extends JFrame implements ActionListener {
     InfoBottomPanel infoPanel = null;
     CenterPanel centerPanel = null;
     MyLogger logger = null;
+    AboutWindow aboutWindow = null;
 
     private JMenu fileMenu, helpMenu, viewMenu;
     private JMenuItem exitMenuItem, aboutMenuItem, helpMenuItem;
@@ -38,7 +40,7 @@ public class MyWindow extends JFrame implements ActionListener {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
 
         //Zamykanie okna
         addWindowListener(new WindowAdapter() {
@@ -63,11 +65,14 @@ public class MyWindow extends JFrame implements ActionListener {
         infoPanel = new InfoBottomPanel();
         createPanel();
 
+
+
         centerPanel= new CenterPanel();
 
         conPane.add(jToolBar, BorderLayout.NORTH);
         conPane.add(infoPanel, BorderLayout.SOUTH);
         conPane.add(centerPanel, BorderLayout.CENTER);
+
 
     }
 
@@ -189,18 +194,20 @@ public class MyWindow extends JFrame implements ActionListener {
             }
         }
 
-        public void actionPerformed(ActionEvent ae){
-            if((ae.getSource() == aboutMenuItem) || (ae.getSource() == jtbAbout)) {
-                    showMessageDialog(this,
-                            "Autor: Cezary Formalewicz",
-                            "O autorze",
-                            INFORMATION_MESSAGE);
+        public void actionPerformed(ActionEvent ae) {
+            if ((ae.getSource() == aboutMenuItem) || (ae.getSource() == jtbAbout)) {
 
+                if (aboutWindow != null) aboutWindow.setVisible(true);
+                else {
+                    aboutWindow = new AboutWindow();
+                    aboutWindow.setVisible(true);
+                }
             }
-            else if((ae.getSource() == jtbExit) || (ae.getSource() == exitMenuItem)) {
-                closeWindow();
+            else if ((ae.getSource() == jtbExit) || (ae.getSource() == exitMenuItem)) {
+                    closeWindow();
+                }
             }
-        }
+
 
 
 
@@ -209,5 +216,12 @@ public class MyWindow extends JFrame implements ActionListener {
         MyWindow myWindow = new MyWindow();
         myWindow.setVisible(true);
 
+        try{
+            sleep(150);
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+        TOTD tip = new TOTD();
     }
 }
