@@ -4,6 +4,9 @@ import com.l2fprod.common.demo.OutlookBarMain;
 import com.l2fprod.common.swing.JOutlookBar;
 import com.l2fprod.common.swing.PercentLayout;
 import jdk.nashorn.internal.scripts.JO;
+import org.freixas.jcalendar.DateEvent;
+import org.freixas.jcalendar.DateListener;
+import org.freixas.jcalendar.JCalendarCombo;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -40,12 +44,14 @@ public class CenterPanel extends JPanel implements ActionListener {
     private JButton susButton;
     private JButton saveButton;
     private JButton calcButton;
+    private JButton wykres,oAutorze;
     private JTable table;
     private JScrollPane tablePane;
     private Tabela tabela;
     private JComboBox operacja;
     private String[] oper = {"Suma","Średnia","Min i Max"};
-    private JOutlookBar navigate;
+    private JCalendarCombo kalendarz = new JCalendarCombo();
+    AboutWindow aboutWindow = null;
 
 
 
@@ -78,7 +84,6 @@ public class CenterPanel extends JPanel implements ActionListener {
 
         outlook.setTabPlacement(JTabbedPane.LEFT);
         addTab(outlook, "Funkcje");
-        addTab(outlook, "Duplikat");
         outlook.addTab("JTree", outlook.makeScrollPane(tree));
 
         // Utworzenie obiektow TextField
@@ -196,6 +201,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         calcButton.addActionListener(this);
         jp.add(calcButton);
 
+        createCalendar();
+        jp.add(kalendarz);
+
         return jp;
     }
 
@@ -262,9 +270,16 @@ public class CenterPanel extends JPanel implements ActionListener {
                 break;
             }
         }
-//        else if(){
-//
-//        }
+        else if(ae.getSource() == wykres){
+
+        }
+        else if(ae.getSource() == oAutorze){
+            if (aboutWindow != null) aboutWindow.setVisible(true);
+            else {
+                aboutWindow = new AboutWindow();
+                aboutWindow.setVisible(true);
+            }
+        }
     }
     public void exportToCSV(){
         JFileChooser fileBrowser = new JFileChooser();
@@ -303,26 +318,44 @@ public class CenterPanel extends JPanel implements ActionListener {
         return submitButton;
     }
 
+    private void createCalendar(){
+
+        this.kalendarz = new JCalendarCombo();
+        kalendarz.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        kalendarz.addActionListener(this);
+        kalendarz.addDateListener(new DateListener() {
+            @Override
+            public void dateChanged(DateEvent dateEvent) {
+                String formatDateOutput = new SimpleDateFormat("yyyy-MM-dd").format(kalendarz.getDate());
+                resultTextArea.setText("Wybrano datę: "+formatDateOutput);
+            }
+        });
+    }
+
     void addTab(JOutlookBar tabs, String title) {
         JPanel panel = new JPanel();
         panel.setLayout(new PercentLayout(PercentLayout.VERTICAL, 0));
         panel.setOpaque(false);
 
-        String[] buttons = new String[] {"Wykres", "icons/folder32x32.png",
-                "O autorze", "icons/propertysheet32x32.png"};
-
-        for (int i = 0, c = buttons.length; i < c; i += 2) {
-            JButton button = new JButton(buttons[i]);
-            try {
-                button.setUI((ButtonUI)Class.forName(
+        wykres = new JButton("Wykres",new ImageIcon(OutlookBarMain.class.getResource("icons/folder32x32.png")));
+        wykres.addActionListener(this);
+        try {
+                wykres.setUI((ButtonUI)Class.forName(
                         (String)UIManager.get("OutlookButtonUI")).newInstance());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            button.setIcon(new ImageIcon(OutlookBarMain.class
-                    .getResource(buttons[i + 1])));
-            panel.add(button);
+        panel.add(wykres);
+
+        oAutorze = new JButton("O autorze",new ImageIcon(OutlookBarMain.class.getResource("icons/propertysheet32x32.png")));
+        oAutorze.addActionListener(this);
+        try {
+            oAutorze.setUI((ButtonUI)Class.forName(
+                    (String)UIManager.get("OutlookButtonUI")).newInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        panel.add(oAutorze);
 
         JScrollPane scroll = tabs.makeScrollPane(panel);
         tabs.addTab("", scroll);
