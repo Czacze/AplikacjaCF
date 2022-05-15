@@ -1,5 +1,10 @@
 package app;
 
+import com.l2fprod.common.demo.OutlookBarMain;
+import com.l2fprod.common.swing.JOutlookBar;
+import com.l2fprod.common.swing.PercentLayout;
+import jdk.nashorn.internal.scripts.JO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +15,7 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.ButtonUI;
 import javax.swing.table.TableModel;
 
 /**
@@ -39,6 +45,9 @@ public class CenterPanel extends JPanel implements ActionListener {
     private Tabela tabela;
     private JComboBox operacja;
     private String[] oper = {"Suma","Średnia","Min i Max"};
+    private JOutlookBar navigate;
+
+
 
     private TitledBorder titledBorder;
     private Border blackLine;
@@ -47,6 +56,12 @@ public class CenterPanel extends JPanel implements ActionListener {
      */
     public CenterPanel() {
         createGUI();
+    }
+
+    private JOutlookBar createJOutlookBar(){
+        JOutlookBar jOutlookBar = new JOutlookBar();
+
+        return jOutlookBar;
     }
     /**
      * Metoda tworzacaca graficzny interfejs uzytkownika
@@ -58,11 +73,19 @@ public class CenterPanel extends JPanel implements ActionListener {
         northPanel = createNorthPanel();
         centerPanel = createCenterPanel();
         southPanel = createSouthPanel();
+        JTree tree = new JTree();
+        JOutlookBar outlook = createJOutlookBar();
+
+        outlook.setTabPlacement(JTabbedPane.LEFT);
+        addTab(outlook, "Funkcje");
+        addTab(outlook, "Duplikat");
+        outlook.addTab("JTree", outlook.makeScrollPane(tree));
 
         // Utworzenie obiektow TextField
         this.add(northPanel,BorderLayout.NORTH);
         this.add(centerPanel,BorderLayout.CENTER);
         this.add(southPanel,BorderLayout.SOUTH);
+        this.add(outlook,BorderLayout.WEST);
     }
     /**
      * Metoda tworzaca panel z parametrami
@@ -239,6 +262,9 @@ public class CenterPanel extends JPanel implements ActionListener {
                 break;
             }
         }
+//        else if(){
+//
+//        }
     }
     public void exportToCSV(){
         JFileChooser fileBrowser = new JFileChooser();
@@ -276,5 +302,34 @@ public class CenterPanel extends JPanel implements ActionListener {
     public static JButton getSubmitButton(){
         return submitButton;
     }
+
+    void addTab(JOutlookBar tabs, String title) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new PercentLayout(PercentLayout.VERTICAL, 0));
+        panel.setOpaque(false);
+
+        String[] buttons = new String[] {"Wykres", "icons/folder32x32.png",
+                "O autorze", "icons/propertysheet32x32.png"};
+
+        for (int i = 0, c = buttons.length; i < c; i += 2) {
+            JButton button = new JButton(buttons[i]);
+            try {
+                button.setUI((ButtonUI)Class.forName(
+                        (String)UIManager.get("OutlookButtonUI")).newInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            button.setIcon(new ImageIcon(OutlookBarMain.class
+                    .getResource(buttons[i + 1])));
+            panel.add(button);
+        }
+
+        JScrollPane scroll = tabs.makeScrollPane(panel);
+        tabs.addTab("", scroll);
+
+        // this to test the UI gets notified of changes
+        int index = tabs.indexOfComponent(scroll);
+        tabs.setTitleAt(index, title);
+        tabs.setToolTipTextAt(index, title + " Tooltip");
+    }
 }
-//TODO: zapis do pliku .csv(export)
