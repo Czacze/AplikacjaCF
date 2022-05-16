@@ -7,6 +7,7 @@ import jdk.nashorn.internal.scripts.JO;
 import org.freixas.jcalendar.DateEvent;
 import org.freixas.jcalendar.DateListener;
 import org.freixas.jcalendar.JCalendarCombo;
+import org.jfree.data.general.DefaultPieDataset;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.ButtonUI;
 import javax.swing.table.TableModel;
+import org.jfree.chart.*;
 
 /**
  * Program <code>MyWindow</code>
@@ -51,7 +53,9 @@ public class CenterPanel extends JPanel implements ActionListener {
     private JComboBox operacja;
     private String[] oper = {"Suma","Średnia","Min i Max"};
     private JCalendarCombo kalendarz = new JCalendarCombo();
+    private JFreeChart pieChart;
     AboutWindow aboutWindow = null;
+    DefaultPieDataset dataset = new DefaultPieDataset();
 
 
 
@@ -271,7 +275,7 @@ public class CenterPanel extends JPanel implements ActionListener {
             }
         }
         else if(ae.getSource() == wykres){
-
+            createPieChart();
         }
         else if(ae.getSource() == oAutorze){
             if (aboutWindow != null) aboutWindow.setVisible(true);
@@ -364,5 +368,36 @@ public class CenterPanel extends JPanel implements ActionListener {
         int index = tabs.indexOfComponent(scroll);
         tabs.setTitleAt(index, title);
         tabs.setToolTipTextAt(index, title + " Tooltip");
+    }
+
+    private ChartFrame createPieChart(){
+        JFrame jpa = new JFrame();
+        updateDataset();
+        pieChart = ChartFactory.createPieChart("Liczby nieparzyste i parzyste", dataset, true, true, false);
+        ChartFrame chartFrame=new ChartFrame("Wykres",pieChart);
+        chartFrame.setBackground(new Color(120, 120, 120));
+        chartFrame.setVisible(true);
+        chartFrame.setSize(500,500);
+        chartFrame.setLocationRelativeTo(null);
+
+        return chartFrame;
+    }
+
+    protected void updateDataset(){
+        int parzyste = 0;
+        int nieparzyste = 0;
+
+        for(int i=0;i<=table.getRowCount()-1;i++){
+            for(int j=0;j<=table.getColumnCount()-1;j++){
+                if ((int) table.getValueAt(i, j)%2 == 1){
+                    nieparzyste++;
+                }else if((int) table.getValueAt(i, j)%2 == 0){
+                    parzyste++;
+                }
+            }
+        }
+        dataset.setValue("Nieparzyste",nieparzyste);
+        dataset.setValue("Parzyste",parzyste);
+
     }
 }

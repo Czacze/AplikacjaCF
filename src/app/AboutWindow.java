@@ -64,7 +64,7 @@ public class AboutWindow extends JDialog implements ActionListener {
 		
 		try {
 			lIcon = new JLabel(new ImageIcon(
-				getClass().getResource("/resources/author_logo.png")));
+				getClass().getResource("/resources/terry.png")));
 		} 
 		catch(Exception e) { 
 			lIcon = new JLabel();

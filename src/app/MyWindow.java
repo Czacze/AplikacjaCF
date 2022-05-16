@@ -13,8 +13,8 @@ import static javax.swing.JOptionPane.*;
 public class MyWindow extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1;
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 450;
+    public static final int WIDTH = 600;
+    public static final int HEIGHT = 450;
 
     private JPanel conPane;
 
