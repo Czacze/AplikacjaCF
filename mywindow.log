@@ -428,3 +428,26 @@ INFO [2022-05-17 20:00:00,319]: MyLogger.java 15 Otwarto O autorze
 INFO [2022-05-17 20:00:07,744]: MyLogger.java 15 Zamkniecie aplikacji 
 INFO [2022-05-17 20:00:35,153]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
 INFO [2022-05-17 20:00:39,658]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 20:48:01,665]: MyLogger.java 19 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 20:48:03,946]: MyLogger.java 19 Tworzenie wykresu 
+INFO [2022-05-17 20:48:06,318]: MyLogger.java 19 Tabela Losowanie 
+INFO [2022-05-17 20:48:07,245]: MyLogger.java 19 Tworzenie wykresu 
+INFO [2022-05-17 20:48:10,018]: MyLogger.java 19 Otwarto O autorze 
+INFO [2022-05-17 20:48:13,974]: MyLogger.java 19 Data Wybrana 
+INFO [2022-05-17 20:48:13,975]: MyLogger.java 19 Data Wybrana 
+INFO [2022-05-17 20:48:15,115]: MyLogger.java 19 Otwarto O programie 
+INFO [2022-05-17 20:48:25,910]: MyLogger.java 19 Otwarto Potwierdzenie zamknięcia 
+INFO [2022-05-17 20:48:26,669]: MyLogger.java 19 Zamkniecie aplikacji 
+INFO [2022-05-17 20:58:08,689]: MyLogger.java 19 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 20:58:13,502]: MyLogger.java 19 Tabela Zerowanie 
+INFO [2022-05-17 20:58:14,259]: MyLogger.java 19 Tabela Losowanie 
+INFO [2022-05-17 20:58:47,266]: MyLogger.java 19 Otwarto Potwierdzenie zamknięcia 
+INFO [2022-05-17 20:58:48,881]: MyLogger.java 19 Zamkniecie aplikacji 
+INFO [2022-05-17 21:13:32,230]: TOTD.java 22 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 21:13:35,300]: CenterPanel.java 302 Tworzenie wykresu 
+INFO [2022-05-17 21:13:41,503]: CenterPanel.java 285 Obliczanie sumy 
+INFO [2022-05-17 21:13:43,212]: CenterPanel.java 295 Obliczanie min i max 
+INFO [2022-05-17 21:13:48,332]: CenterPanel.java 259 Wpisanie wartości 
+INFO [2022-05-17 21:13:50,566]: CenterPanel.java 311 Otwarto O autorze 
+INFO [2022-05-17 21:14:04,221]: MyWindow.java 95 Otwarto Potwierdzenie zamknięcia 
+INFO [2022-05-17 21:14:05,024]: MyWindow.java 110 Zamkniecie aplikacji 

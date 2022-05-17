@@ -7,6 +7,8 @@ import com.l2fprod.common.swing.tips.DefaultTipModel;
 import javax.swing.*;
 import java.util.Random;
 
+import static app.MyLogger.log;
+
 /**
  * Klasa TOTD obslugujaca wyswietlanie okna z porada dnia
  */
@@ -17,7 +19,7 @@ public class TOTD extends JDialog {
 
     public TOTD(){
         defaultTips();
-        MyLogger.writeLog("INFO","Wyświetlenie okna z poradami dnia");
+        log.info("Wyświetlenie okna z poradami dnia");
         tip.showDialog(this);
     }
 

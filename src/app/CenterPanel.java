@@ -24,6 +24,8 @@ import javax.swing.plaf.ButtonUI;
 import javax.swing.table.TableModel;
 import org.jfree.chart.*;
 
+import static app.MyLogger.log;
+
 /**
  * Program <code>MyWindow</code>
  * Klasa <code>CenterPanel</code> definiujaca centralny panel
@@ -254,6 +256,7 @@ public class CenterPanel extends JPanel implements ActionListener {
 
                 tabela.setValueAt(value, column, row);
                 InfoBottomPanel.setInfoString("Wpisanie wartości");
+                log.info("Wpisanie wartości");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this,
                         "Błędna wartość",
@@ -264,12 +267,12 @@ public class CenterPanel extends JPanel implements ActionListener {
         else if(ae.getSource() == zeroButton) {
             InfoBottomPanel.setInfoString("Zerowanie tabeli");
             tabela.setZeroTable();
-            MyLogger.writeLog("INFO","Tabela Zerowanie");
+            log.info("Tabela Zerowanie");
         }
         else if(ae.getSource() == fillButton) {
             InfoBottomPanel.setInfoString("Losowanie wartości w tabeli");
             tabela.setRandomTable();
-            MyLogger.writeLog("INFO","Tabela Losowanie");
+            log.info("Tabela Losowanie");
         }
         else if(ae.getSource() == saveButton){
             InfoBottomPanel.setInfoString("Próba zapisu");
@@ -279,24 +282,24 @@ public class CenterPanel extends JPanel implements ActionListener {
             switch(operacja.getSelectedIndex()){
             case 0:
                 InfoBottomPanel.setInfoString("Obliczanie sumy");
-                MyLogger.writeLog("INFO","Obliczanie sumy");
+                log.info("Obliczanie sumy");
                 resultTextArea.setText("Suma wynosi: " + tabela.calculateSum());
                 break;
             case 1:
                 InfoBottomPanel.setInfoString("Obliczanie średniej");
-                MyLogger.writeLog("INFO","Obliczanie średniej");
+                log.info("Obliczanie średniej");
                 resultTextArea.setText("Średnia wynosi: " + tabela.calculateAverage());
                 break;
             case 2:
                 InfoBottomPanel.setInfoString("Obliczanie min i max");
-                MyLogger.writeLog("INFO","Obliczanie min i max");
+                log.info("Obliczanie min i max");
                 resultTextArea.setText("Min wynosi: " + tabela.calculateMin() + " , Max wynosi: " + tabela.calculateMax());
                 break;
             }
         }
         else if(ae.getSource() == wykres){
             InfoBottomPanel.setInfoString("Tworzenie wykresu");
-            MyLogger.writeLog("INFO","Tworzenie wykresu");
+            log.info("Tworzenie wykresu");
             createPieChart();
         }
         else if(ae.getSource() == oAutorze){
@@ -305,7 +308,7 @@ public class CenterPanel extends JPanel implements ActionListener {
             }
             else {
                 InfoBottomPanel.setInfoString("Otwieranie \"O autorze\"");
-                MyLogger.writeLog("INFO","Otwarto O autorze");
+                log.info("Otwarto O autorze");
                 aboutWindow = new AboutWindow();
                 aboutWindow.setVisible(true);
             }
@@ -331,10 +334,10 @@ public class CenterPanel extends JPanel implements ActionListener {
                 }
                 csv.close();
                 InfoBottomPanel.setInfoString("Zapis udany");
-                MyLogger.writeLog("INFO","Zapis do pliku .csv");
+                log.info("Zapis do pliku .csv");
             }catch(IOException e){
                 InfoBottomPanel.setInfoString("Zapis nieudany");
-                MyLogger.writeLog("INFO","Zapis do pliku .csv - nieudany");
+                log.info("Zapis do pliku .csv - nieudany");
                 JOptionPane.showMessageDialog(this,
                         "Wystąpił błąd przy zapisywaniu pliku",
                         "Błąd",
@@ -370,7 +373,7 @@ public class CenterPanel extends JPanel implements ActionListener {
                 String formatDateOutput = new SimpleDateFormat("yyyy-MM-dd").format(kalendarz.getDate());
                 resultTextArea.setText("Wybrano datę: "+formatDateOutput);
                 InfoBottomPanel.setInfoString("Wybór daty");
-                MyLogger.writeLog("INFO","Data Wybrana");
+                log.info("Data Wybrana");
             }
         });
     }

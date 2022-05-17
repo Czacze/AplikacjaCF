@@ -9,7 +9,7 @@ import com.l2fprod.common.swing.JTipOfTheDay;
 
 import static java.lang.Thread.sleep;
 import static javax.swing.JOptionPane.*;
-
+import static app.MyLogger.log;
 /**
  * Program AplikacjaCF wyświetla tabelę do której można wprowadzać wartości liczbowe.
  * W aplikacji można dokonać różnych działań np. obliczyć średnią, sumę, wartości minimalne i maksymalne,
@@ -92,7 +92,7 @@ public class MyWindow extends JFrame implements ActionListener {
 
         private void closeWindow() {
             InfoBottomPanel.setInfoString("Próba zamknięcia aplikacji");
-            MyLogger.writeLog("INFO","Otwarto Potwierdzenie zamknięcia");
+            log.info("Otwarto Potwierdzenie zamknięcia");
             //Okno dialogowe - zamykanie aplikacji
             Object[] options = {"Tak","Nie"};
             int value = showOptionDialog(
@@ -107,13 +107,13 @@ public class MyWindow extends JFrame implements ActionListener {
             );
 
             if(value == YES_OPTION) {
-                MyLogger.writeLog("INFO","Zamkniecie aplikacji");
+                log.info("Zamkniecie aplikacji");
                 dispose();
                 System.exit(0);
             }
             else if(value == NO_OPTION){
                 InfoBottomPanel.setInfoString("Anulowanie zamknięcia");
-                MyLogger.writeLog("INFO","Anulowano Zamkniecie aplikacji");
+                log.info("Anulowano Zamkniecie aplikacji");
             }
         }
 
@@ -210,7 +210,7 @@ public class MyWindow extends JFrame implements ActionListener {
                 mIconAbout = createMyIcon("min_about.jpg");
 
             }catch(Exception e){
-                MyLogger.writeLog("ERROR","Blad tworzenia ikon");
+                log.info("Blad tworzenia ikon");
                 System.out.println("IconError");
             }
         }
@@ -224,7 +224,7 @@ public class MyWindow extends JFrame implements ActionListener {
 
                 if (aboutWindow != null) aboutWindow.setVisible(true);
                 else {
-                    MyLogger.writeLog("INFO","Otwarto O autorze");
+                    log.info("Otwarto O autorze");
                     aboutWindow = new AboutWindow();
                     aboutWindow.setVisible(true);
                 }
@@ -235,7 +235,7 @@ public class MyWindow extends JFrame implements ActionListener {
             else if ((ae.getSource() == jtbHelp) || (ae.getSource() == helpMenuItem)) {
                 if (helpWindow != null) helpWindow.setVisible(true);
                 else {
-                    MyLogger.writeLog("INFO","Otwarto O programie");
+                    log.info("Otwarto O programie");
                     helpWindow = new HelpWindow();
                     helpWindow.setVisible(true);
                 }
