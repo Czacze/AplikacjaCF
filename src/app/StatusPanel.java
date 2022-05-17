@@ -18,7 +18,7 @@ public class StatusPanel extends JPanel {
 		setBackground(Color.GREEN);
 		add(eventLabel, BorderLayout.WEST);
 	}
-	
+
 	private void initGUI() {
 		eventLabel = new JLabel("start aplikacji");
 		numRow = new JTextField("1");
@@ -26,6 +26,5 @@ public class StatusPanel extends JPanel {
 		numCol = new JTextField("1");
 		numCol.setHorizontalAlignment(JTextField.RIGHT);
 	}
-	
-	
+
 }

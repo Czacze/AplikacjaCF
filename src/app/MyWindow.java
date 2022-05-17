@@ -10,6 +10,11 @@ import com.l2fprod.common.swing.JTipOfTheDay;
 import static java.lang.Thread.sleep;
 import static javax.swing.JOptionPane.*;
 
+/**
+ * Klasa MyWindow rozszerzajaca klase JFrame i implementujaca interfejs ActionListener
+ * Obsluguje tworzenie okna, pasek narzedzi i pasek statusu
+ */
+
 public class MyWindow extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1;
@@ -26,6 +31,7 @@ public class MyWindow extends JFrame implements ActionListener {
     private JMenu fileMenu, helpMenu, viewMenu;
     private JMenuItem exitMenuItem, aboutMenuItem, helpMenuItem;
     private JMenuBar jMenuBar;
+    private HelpWindow helpWindow;
 
     JToolBar jToolBar;
     JButton jtbExit, jtbHelp, jtbAbout;
@@ -55,17 +61,16 @@ public class MyWindow extends JFrame implements ActionListener {
         //Utworzenie dziennika zdarzeń
         logger = new MyLogger();
 
-        //utworzenie GUI
+        //Utworzenie GUI
         createMenus();
         createIcons();
 
+        //Utworzenie elementów okna
         jToolBar = new JToolBar();
         createJToolBar(jToolBar);
 
         infoPanel = new InfoBottomPanel();
         createPanel();
-
-
 
         centerPanel= new CenterPanel();
 
@@ -77,6 +82,7 @@ public class MyWindow extends JFrame implements ActionListener {
     }
 
         private void closeWindow() {
+            InfoBottomPanel.setInfoString("Próba zamknięcia aplikacji");
             //Okno dialogowe - zamykanie aplikacji
             Object[] options = {"Tak","Nie"};
             int value = showOptionDialog(
@@ -94,6 +100,9 @@ public class MyWindow extends JFrame implements ActionListener {
                 MyLogger.writeLog("INFO","Zamkniecie aplikacji");
                 dispose();
                 System.exit(0);
+            }
+            else if(value == NO_OPTION){
+                InfoBottomPanel.setInfoString("Anulowanie zamknięcia");
             }
         }
 
@@ -194,6 +203,10 @@ public class MyWindow extends JFrame implements ActionListener {
             }
         }
 
+    /**
+     * Metoda obslugujaca zdarzenie akcji
+     * @param ae obiekt klasy nasluchujacej <code>ActionListener</code>
+     */
         public void actionPerformed(ActionEvent ae) {
             if ((ae.getSource() == aboutMenuItem) || (ae.getSource() == jtbAbout)) {
 
@@ -206,11 +219,21 @@ public class MyWindow extends JFrame implements ActionListener {
             else if ((ae.getSource() == jtbExit) || (ae.getSource() == exitMenuItem)) {
                     closeWindow();
                 }
+            else if ((ae.getSource() == jtbHelp) || (ae.getSource() == helpMenuItem)) {
+                if (helpWindow != null) helpWindow.setVisible(true);
+                else {
+                    helpWindow = new HelpWindow();
+                    helpWindow.setVisible(true);
+                }
+            }
+
             }
 
 
-
-
+    /**
+     * Metoda sluzaca do uruchomienia aplikacji, tworzony jest w niej obiekt klasy <code>MyWindow</code>
+     * @param args Tablica parametrów klasy <code>String</code>, niewykorzystywana
+     */
     public static void main(String[] args) {
         System.out.println("Start aplikacji");
         MyWindow myWindow = new MyWindow();

@@ -43,10 +43,9 @@ public class CenterPanel extends JPanel implements ActionListener {
     private static JButton submitButton;
     private JButton zeroButton;
     private JButton fillButton;
-    private JButton susButton;
     private JButton saveButton;
     private JButton calcButton;
-    private JButton wykres,oAutorze;
+    private JButton wykres, oAutorze;
     private JTable table;
     private JScrollPane tablePane;
     private Tabela tabela;
@@ -97,7 +96,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         this.add(outlook,BorderLayout.WEST);
     }
     /**
-     * Metoda tworzaca panel z parametrami
+     * Metoda tworzaca panel z elementami zarzadzajacymi wpisywaniem wartosci do tabeli
      */
     public JPanel createNorthPanel() {
         JPanel jp = new JPanel();
@@ -116,7 +115,7 @@ public class CenterPanel extends JPanel implements ActionListener {
             }
         });
 
-
+        //slider wiersza
         rowTextField = new JSlider(JSlider.HORIZONTAL,1,5,1);
         rowTextField.setMajorTickSpacing(1);
         rowTextField.setPaintTicks(true);
@@ -124,7 +123,7 @@ public class CenterPanel extends JPanel implements ActionListener {
         rowLabel = new JLabel("Nr wiersza");
         rowLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-
+        //slider kolumny
         columnTextField = new JSlider(JSlider.HORIZONTAL,1,5,1);
         columnTextField.setMajorTickSpacing(1);
         columnTextField.setPaintTicks(true);
@@ -146,7 +145,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         return jp;
     }
 
-
+    /**
+     * Metoda tworzaca panel z tabela
+     */
     public JPanel createCenterPanel(){
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
@@ -164,6 +165,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         return jp;
     }
 
+    /**
+     * Metoda tworzaca panel z przyciskami obslugujacymi funkcje tabeli
+     */
     public JPanel createCenterPanel2(){
         JPanel jp = new JPanel();
         jp.setLayout(new GridBagLayout());
@@ -182,15 +186,13 @@ public class CenterPanel extends JPanel implements ActionListener {
         saveButton.addActionListener(this);
         jp.add(saveButton);
 
-//        jp.add(Box.createHorizontalStrut(20));
-//        susButton = new JButton("Amogus");
-//        susButton.addActionListener(this);
-//        jp.add(susButton);
-
         jp.setBackground(new Color(232,220,202));
         return jp;
     }
 
+    /**
+     * Metoda tworzaca panel pod tabela
+     */
     public JPanel createCenterPanel3(){
         JPanel jp = new JPanel();
         jp.setLayout(new FlowLayout());
@@ -233,8 +235,10 @@ public class CenterPanel extends JPanel implements ActionListener {
         jp.add(new JScrollPane(resultTextArea),BorderLayout.CENTER);
         return jp;
     }
+
     /**
-     * Metoda obsługujaca zdarzenie akcji
+     * Metoda obslugujaca zdarzenie akcji
+     * @param ae obiekt klasy nasluchujacej <code>ActionListener</code>
      */
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -245,6 +249,7 @@ public class CenterPanel extends JPanel implements ActionListener {
                 int value = Integer.parseInt(numberTextField.getText());
 
                 tabela.setValueAt(value, column, row);
+                InfoBottomPanel.setInfoString("Wpisanie wartości");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this,
                         "Błędna wartość",
@@ -253,38 +258,53 @@ public class CenterPanel extends JPanel implements ActionListener {
             }
         }
         else if(ae.getSource() == zeroButton) {
+            InfoBottomPanel.setInfoString("Zerowanie tabeli");
             tabela.setZeroTable();
         }
         else if(ae.getSource() == fillButton) {
+            InfoBottomPanel.setInfoString("Losowanie wartości w tabeli");
             tabela.setRandomTable();
         }
         else if(ae.getSource() == saveButton){
+            InfoBottomPanel.setInfoString("Próba zapisu");
             exportToCSV();
         }
         else if(ae.getSource() == calcButton){
             switch(operacja.getSelectedIndex()){
             case 0:
+                InfoBottomPanel.setInfoString("Obliczanie sumy");
                 resultTextArea.setText("Suma wynosi: " + tabela.calculateSum());
                 break;
             case 1:
+                InfoBottomPanel.setInfoString("Obliczanie średniej");
                 resultTextArea.setText("Średnia wynosi: " + tabela.calculateAverage());
                 break;
             case 2:
+                InfoBottomPanel.setInfoString("Obliczanie min i max");
                 resultTextArea.setText("Min wynosi: " + tabela.calculateMin() + " , Max wynosi: " + tabela.calculateMax());
                 break;
             }
         }
         else if(ae.getSource() == wykres){
+            InfoBottomPanel.setInfoString("Tworzenie wykresu");
             createPieChart();
         }
         else if(ae.getSource() == oAutorze){
-            if (aboutWindow != null) aboutWindow.setVisible(true);
+            if (aboutWindow != null){
+                InfoBottomPanel.setInfoString("Otwieranie \"O autorze\"");
+                aboutWindow.setVisible(true);
+            }
             else {
+                InfoBottomPanel.setInfoString("Otwieranie \"O autorze\"");
                 aboutWindow = new AboutWindow();
                 aboutWindow.setVisible(true);
             }
         }
     }
+
+    /**
+     * Metoda obslugujuca eksportowanie wartosci z tabeli do pliku .csv
+     */
     public void exportToCSV(){
         JFileChooser fileBrowser = new JFileChooser();
         int select = fileBrowser.showSaveDialog(this);
@@ -300,7 +320,9 @@ public class CenterPanel extends JPanel implements ActionListener {
                     csv.write("\n");
                 }
                 csv.close();
+                InfoBottomPanel.setInfoString("Zapis udany");
             }catch(IOException e){
+                InfoBottomPanel.setInfoString("Zapis nieudany");
                 JOptionPane.showMessageDialog(this,
                         "Wystąpił błąd przy zapisywaniu pliku",
                         "Błąd",
@@ -322,6 +344,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         return submitButton;
     }
 
+    /**
+     * Metoda tworzaca kalendarz do wyboru dnia
+     */
     private void createCalendar(){
 
         this.kalendarz = new JCalendarCombo();
@@ -332,10 +357,16 @@ public class CenterPanel extends JPanel implements ActionListener {
             public void dateChanged(DateEvent dateEvent) {
                 String formatDateOutput = new SimpleDateFormat("yyyy-MM-dd").format(kalendarz.getDate());
                 resultTextArea.setText("Wybrano datę: "+formatDateOutput);
+                InfoBottomPanel.setInfoString("Wybór daty");
             }
         });
     }
 
+    /**
+     * Metoda dodajaca zakladke do JOutlookBar
+     * @param tabs Nazwa zakladki
+     * @param title Tytul zakladki
+     */
     void addTab(JOutlookBar tabs, String title) {
         JPanel panel = new JPanel();
         panel.setLayout(new PercentLayout(PercentLayout.VERTICAL, 0));
@@ -370,6 +401,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         tabs.setToolTipTextAt(index, title + " Tooltip");
     }
 
+    /**
+     * Metoda tworzaca i wyswietlajaca wykres kolowy
+     */
     private ChartFrame createPieChart(){
         JFrame jpa = new JFrame();
         updateDataset();
@@ -383,6 +417,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         return chartFrame;
     }
 
+    /**
+     * Metoda aktualizujaca dataset wykresu
+     */
     protected void updateDataset(){
         int parzyste = 0;
         int nieparzyste = 0;
