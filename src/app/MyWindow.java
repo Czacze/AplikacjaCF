@@ -11,10 +11,19 @@ import static java.lang.Thread.sleep;
 import static javax.swing.JOptionPane.*;
 
 /**
+ * Program AplikacjaCF wyświetla tabelę do której można wprowadzać wartości liczbowe.
+ * W aplikacji można dokonać różnych działań np. obliczyć średnią, sumę, wartości minimalne i maksymalne,
+ * wyświetlić tabelę i wyświetlić wybraną datę.
+ *
+ * @author Cezary Formalewicz
+ * @version 1.01
+ * @since 2022-04-09
+ */
+
+/**
  * Klasa MyWindow rozszerzajaca klase JFrame i implementujaca interfejs ActionListener
  * Obsluguje tworzenie okna, pasek narzedzi i pasek statusu
  */
-
 public class MyWindow extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1;
@@ -83,6 +92,7 @@ public class MyWindow extends JFrame implements ActionListener {
 
         private void closeWindow() {
             InfoBottomPanel.setInfoString("Próba zamknięcia aplikacji");
+            MyLogger.writeLog("INFO","Otwarto Potwierdzenie zamknięcia");
             //Okno dialogowe - zamykanie aplikacji
             Object[] options = {"Tak","Nie"};
             int value = showOptionDialog(
@@ -103,10 +113,12 @@ public class MyWindow extends JFrame implements ActionListener {
             }
             else if(value == NO_OPTION){
                 InfoBottomPanel.setInfoString("Anulowanie zamknięcia");
+                MyLogger.writeLog("INFO","Anulowano Zamkniecie aplikacji");
             }
         }
 
         private void createMenus(){
+
         //Pasek menu - utworzenie
             JMenuBar menuBar = new JMenuBar();
 
@@ -212,6 +224,7 @@ public class MyWindow extends JFrame implements ActionListener {
 
                 if (aboutWindow != null) aboutWindow.setVisible(true);
                 else {
+                    MyLogger.writeLog("INFO","Otwarto O autorze");
                     aboutWindow = new AboutWindow();
                     aboutWindow.setVisible(true);
                 }
@@ -222,6 +235,7 @@ public class MyWindow extends JFrame implements ActionListener {
             else if ((ae.getSource() == jtbHelp) || (ae.getSource() == helpMenuItem)) {
                 if (helpWindow != null) helpWindow.setVisible(true);
                 else {
+                    MyLogger.writeLog("INFO","Otwarto O programie");
                     helpWindow = new HelpWindow();
                     helpWindow.setVisible(true);
                 }

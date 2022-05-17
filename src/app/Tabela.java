@@ -3,6 +3,10 @@ package app;
 import javax.swing.table.AbstractTableModel;
 import java.util.Random;
 
+/**
+ * Klasa <code>Tabela</code> zawiera model tabeli oraz metody związane z obliczeniami na tabeli
+ */
+
 public class Tabela extends AbstractTableModel {
 
     private int countRowTable=5;

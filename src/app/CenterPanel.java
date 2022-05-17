@@ -50,6 +50,7 @@ public class CenterPanel extends JPanel implements ActionListener {
     private JScrollPane tablePane;
     private Tabela tabela;
     private JComboBox operacja;
+    DefaultComboBoxModel comboBoxModel;
     private String[] oper = {"Suma","Średnia","Min i Max"};
     private JCalendarCombo kalendarz = new JCalendarCombo();
     private JFreeChart pieChart;
@@ -61,7 +62,7 @@ public class CenterPanel extends JPanel implements ActionListener {
     private TitledBorder titledBorder;
     private Border blackLine;
     /**
-     * Konstruktor bezparametrowy klasy <CODE>InfoBottomPanel<CODE>
+     * Konstruktor bezparametrowy klasy <CODE>InfoBottomPanel</CODE>
      */
     public CenterPanel() {
         createGUI();
@@ -97,6 +98,7 @@ public class CenterPanel extends JPanel implements ActionListener {
     }
     /**
      * Metoda tworzaca panel z elementami zarzadzajacymi wpisywaniem wartosci do tabeli
+     * @return
      */
     public JPanel createNorthPanel() {
         JPanel jp = new JPanel();
@@ -200,7 +202,9 @@ public class CenterPanel extends JPanel implements ActionListener {
         operLabel = new JLabel("Wybór operacji");
         jp.add(operLabel);
 
-        operacja = new JComboBox(oper);
+        comboBoxModel = new DefaultComboBoxModel(oper);
+        operacja = new JComboBox(comboBoxModel);
+
         jp.add(operacja);
 
         calcButton = new JButton("Oblicz");
@@ -260,10 +264,12 @@ public class CenterPanel extends JPanel implements ActionListener {
         else if(ae.getSource() == zeroButton) {
             InfoBottomPanel.setInfoString("Zerowanie tabeli");
             tabela.setZeroTable();
+            MyLogger.writeLog("INFO","Tabela Zerowanie");
         }
         else if(ae.getSource() == fillButton) {
             InfoBottomPanel.setInfoString("Losowanie wartości w tabeli");
             tabela.setRandomTable();
+            MyLogger.writeLog("INFO","Tabela Losowanie");
         }
         else if(ae.getSource() == saveButton){
             InfoBottomPanel.setInfoString("Próba zapisu");
@@ -273,29 +279,33 @@ public class CenterPanel extends JPanel implements ActionListener {
             switch(operacja.getSelectedIndex()){
             case 0:
                 InfoBottomPanel.setInfoString("Obliczanie sumy");
+                MyLogger.writeLog("INFO","Obliczanie sumy");
                 resultTextArea.setText("Suma wynosi: " + tabela.calculateSum());
                 break;
             case 1:
                 InfoBottomPanel.setInfoString("Obliczanie średniej");
+                MyLogger.writeLog("INFO","Obliczanie średniej");
                 resultTextArea.setText("Średnia wynosi: " + tabela.calculateAverage());
                 break;
             case 2:
                 InfoBottomPanel.setInfoString("Obliczanie min i max");
+                MyLogger.writeLog("INFO","Obliczanie min i max");
                 resultTextArea.setText("Min wynosi: " + tabela.calculateMin() + " , Max wynosi: " + tabela.calculateMax());
                 break;
             }
         }
         else if(ae.getSource() == wykres){
             InfoBottomPanel.setInfoString("Tworzenie wykresu");
+            MyLogger.writeLog("INFO","Tworzenie wykresu");
             createPieChart();
         }
         else if(ae.getSource() == oAutorze){
             if (aboutWindow != null){
-                InfoBottomPanel.setInfoString("Otwieranie \"O autorze\"");
                 aboutWindow.setVisible(true);
             }
             else {
                 InfoBottomPanel.setInfoString("Otwieranie \"O autorze\"");
+                MyLogger.writeLog("INFO","Otwarto O autorze");
                 aboutWindow = new AboutWindow();
                 aboutWindow.setVisible(true);
             }
@@ -321,8 +331,10 @@ public class CenterPanel extends JPanel implements ActionListener {
                 }
                 csv.close();
                 InfoBottomPanel.setInfoString("Zapis udany");
+                MyLogger.writeLog("INFO","Zapis do pliku .csv");
             }catch(IOException e){
                 InfoBottomPanel.setInfoString("Zapis nieudany");
+                MyLogger.writeLog("INFO","Zapis do pliku .csv - nieudany");
                 JOptionPane.showMessageDialog(this,
                         "Wystąpił błąd przy zapisywaniu pliku",
                         "Błąd",
@@ -358,6 +370,7 @@ public class CenterPanel extends JPanel implements ActionListener {
                 String formatDateOutput = new SimpleDateFormat("yyyy-MM-dd").format(kalendarz.getDate());
                 resultTextArea.setText("Wybrano datę: "+formatDateOutput);
                 InfoBottomPanel.setInfoString("Wybór daty");
+                MyLogger.writeLog("INFO","Data Wybrana");
             }
         });
     }

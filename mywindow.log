@@ -388,3 +388,43 @@ INFO  : 2022-05-17 15:47:51,483 Zamkniecie aplikacji
 INFO  : 2022-05-17 15:48:53,253 Zamkniecie aplikacji
 INFO  : 2022-05-17 15:49:10,615 Zamkniecie aplikacji
 INFO  : 2022-05-17 15:51:24,260 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:21:24,039 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:21:35,692 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:22:46,459 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:43:08,893 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:53:40,921 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:53:57,442 Zamkniecie aplikacji
+INFO  : 2022-05-17 17:54:16,072 Zamkniecie aplikacji
+INFO  : 2022-05-17 18:27:01,236 Zamkniecie aplikacji
+INFO  : 2022-05-17 19:14:42,236 Wyświetlenie okna z poradami dnia
+INFO  : 2022-05-17 19:14:44,720 Zamkniecie aplikacji
+INFO [2022-05-17 19:34:43,465]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:34:50,401]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:35:30,028]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:35:36,666]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:44:50,490]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:44:57,237]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:45:05,534]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:45:09,879]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:56:54,499]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:57:05,127]: MyLogger.java 15 Tabela Losowanie 
+INFO [2022-05-17 19:57:05,580]: MyLogger.java 15 Tabela Zerowanie 
+INFO [2022-05-17 19:57:09,817]: MyLogger.java 15 Obliczanie średniej 
+INFO [2022-05-17 19:57:12,907]: MyLogger.java 15 Obliczanie min i max 
+INFO [2022-05-17 19:57:14,114]: MyLogger.java 15 Data Wybrana 
+INFO [2022-05-17 19:57:14,115]: MyLogger.java 15 Data Wybrana 
+INFO [2022-05-17 19:57:15,724]: MyLogger.java 15 Data Wybrana 
+INFO [2022-05-17 19:57:17,825]: MyLogger.java 15 Data Wybrana 
+INFO [2022-05-17 19:57:26,684]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:58:49,857]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:58:54,424]: MyLogger.java 15 Otwarto O autorze 
+INFO [2022-05-17 19:58:57,806]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:59:05,779]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:59:08,005]: MyLogger.java 15 Otwarto O autorze 
+INFO [2022-05-17 19:59:11,282]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 19:59:50,529]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 19:59:52,120]: MyLogger.java 15 Otwarto O programie 
+INFO [2022-05-17 20:00:00,319]: MyLogger.java 15 Otwarto O autorze 
+INFO [2022-05-17 20:00:07,744]: MyLogger.java 15 Zamkniecie aplikacji 
+INFO [2022-05-17 20:00:35,153]: MyLogger.java 15 Wyświetlenie okna z poradami dnia 
+INFO [2022-05-17 20:00:39,658]: MyLogger.java 15 Zamkniecie aplikacji 

@@ -17,6 +17,7 @@ public class TOTD extends JDialog {
 
     public TOTD(){
         defaultTips();
+        MyLogger.writeLog("INFO","Wyświetlenie okna z poradami dnia");
         tip.showDialog(this);
     }
 

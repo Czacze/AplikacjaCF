@@ -13,7 +13,6 @@ import java.awt.event.WindowEvent;
 * Program <code>RejestrLB</code>
 * Klasa <code>AboutWindow</code> definiujaca okno 
 * z informacja o autorze.
-* @author 	 	
 * @version 1.0	15/12/2010
 */
 public class AboutWindow extends JDialog implements ActionListener {
@@ -48,7 +47,7 @@ public class AboutWindow extends JDialog implements ActionListener {
 		// pobranie rozmiarow aplikacji
 		Dimension dialogSize = getSize();		
 		// pobranie rozdzielczosci pulpitu
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		if(dialogSize.height > screenSize.height) 
 			dialogSize.height = screenSize.height;
 		if(dialogSize.width > screenSize.width)

@@ -7,6 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Klasa <code>StatusPanel</code> odpowiada za obsługę paska statusu w dolnym lewym rogu aplikacji.
+ * Wyświetla ostatnio wykonane akcje.
+ */
+
 public class StatusPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +25,7 @@ public class StatusPanel extends JPanel {
 	}
 
 	private void initGUI() {
-		eventLabel = new JLabel("start aplikacji");
+		eventLabel = new JLabel("Start aplikacji");
 		numRow = new JTextField("1");
 		numRow.setHorizontalAlignment(JTextField.RIGHT);
 		numCol = new JTextField("1");

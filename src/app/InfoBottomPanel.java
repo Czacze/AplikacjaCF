@@ -9,11 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 /**
- * Program <code>MyWindow</code>
  * Klasa <code>InfoBottomPanel</code> definiująca dolny panel
  * aplikacji zawierajacy informacje o realizowanych zadaniach
- * @author
- * @version 1.0	15/12/2010
  */
 public class InfoBottomPanel extends JPanel {
 
@@ -23,7 +20,7 @@ public class InfoBottomPanel extends JPanel {
 
 
     /**
-     * Konstruktor bezparametrowy klasy <CODE>InfoBottomPanel<CODE>
+     * Konstruktor bezparametrowy klasy <CODE>InfoBottomPanel</CODE>
      */
     public InfoBottomPanel() {
         createGUI();
